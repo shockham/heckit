@@ -1,5 +1,4 @@
-
-all: build run
+all: run
 
 build:
 	rustc heckit.rs

@@ -7,19 +7,27 @@ struct Project {
     title: &'static str,
     desc: &'static str,
     href: &'static str,
+    img: Option<&'static str>,
 }
 
 impl Project {
     fn to_html(&self) -> String {
+        let img_str = if let Some(url) = self.img {
+            format!("<img src=\"{}\" alt=\"_\">", url)
+        } else {
+            "".to_string()
+        };
+
         format!(
             "<a href=\"{href}\" target=\"_blank\">
                 <h2>{title}</h2>
                 <p>{desc}</p>
-                <img src=\"/img/{title}.png\" alt=\"_\">
+                {img}
             </a>",
             title=self.title,
             desc=self.desc,
             href=self.href,
+            img=img_str,
         )
     }
 }
@@ -31,56 +39,67 @@ fn main() {
             title: "flicke",
             desc: "Initially intended to be a flickery fire ray march sketch",
             href: "https://flicke.now.sh/",
+            img: None,
         },
         Project {
             title: "weive",
             desc: "Rounded cube ray march sketch",
             href: "https://weive.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "efferve",
             desc: "Effervescent ray march sketch",
             href: "https://efferve.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "effuse",
             desc: "Drippy ray march sketch",
             href: "https://effuse.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "botanea",
             desc: "Botantical ray march sketch",
             href: "https://botanea.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "rhombei",
             desc: "Rhombus ray march sketch",
-            href: "https://rhombei.shockham.now.sh/" ,
+            href: "https://rhombei.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "noiser",
             desc: "FM Synth + step sequencer",
             href: "https://noiser.shockham.now.sh/",
+            img: None,
         },
         Project {
             title: "infuse",
             desc: "Minamalist wasm based webgl renderer",
-            href: "https://github.com/shockham/infuse"
+            href: "https://github.com/shockham/infuse",
+            img: None,
         },
         Project {
             title: "caper",
             desc: "Minamalist game framework",
             href: "https://github.com/shockham/caper",
+            img: None,
         },
         Project {
             title: "volition",
             desc: "Minamalist input lib",
-            href: "https://github.com/shockham/volition"
+            href: "https://github.com/shockham/volition",
+            img: None,
         },
         Project {
             title: "impose",
             desc: "Minamalist audio lib",
-            href: "https://github.com/shockham/impose"
+            href: "https://github.com/shockham/impose",
+            img: None,
         },
     ];
 
