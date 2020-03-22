@@ -5,5 +5,6 @@ packages:
 sources:
   - https://git.sr.ht/~shockham/heckit
 tasks:
-- build: |
-   make build
+  - build: |
+      cd heckit
+      make build
