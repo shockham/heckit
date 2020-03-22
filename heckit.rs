@@ -34,6 +34,7 @@ impl Component for Project {
             }
         ".to_string()
     }
+
     fn to_html(&self) -> String {
         let img_str = if let Some(url) = self.img {
             format!("<img src=\"{}\" alt=\"_\">", url)
