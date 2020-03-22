@@ -8,3 +8,6 @@ tasks:
   - build: |
       cd heckit
       make build
+  - test: |
+      cd heckit
+      make test
