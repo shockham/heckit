@@ -198,10 +198,14 @@ fn main() {
         body=app.to_html(),
     );
 
+    start_server(res_string);
+}
+
+fn start_server(response_string: String) {
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
 
     for stream in listener.incoming() {
-        let res_clone = res_string.clone();
+        let res_clone = response_string.clone();
 
         thread::spawn(move || {
             let mut stream = stream.unwrap();
