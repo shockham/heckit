@@ -1,6 +1,9 @@
 all: run
 
 build:
+	rustc heckit.rs
+
+static:
 	rustc --target x86_64-unknown-linux-musl heckit.rs
 
 run: build
