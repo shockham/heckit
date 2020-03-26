@@ -162,8 +162,31 @@ fn main() {
 
     let app = App { projects_html };
 
+    let global_style = "
+        html, body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #111;
+            color: #fff;
+            margin: 0;
+            padding: 2%;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+    ";
     let projects_style = Project::style();
     let app_style = App::style();
+    let mut all_style = format!(
+        "{}{}{}",
+        global_style,
+        app_style,
+        projects_style,
+    );
+    all_style.retain(|c| c != ' ');
 
     let res_string = format!(
         "HTTP/1.1 200 OK\r
@@ -173,20 +196,6 @@ fn main() {
         <head>
             <title>shockham</title>
             <style>
-                html, body {{
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                }}
-
-                body {{
-                    background: #111;
-                    color: #fff;
-                    margin: 0;
-                    padding: 2%;
-                    box-sizing: border-box;
-                    font-family: monospace;
-                }}
                 {style}
             </style>
         </head>
@@ -195,7 +204,7 @@ fn main() {
             {body}
         </body>
         </html>\r",
-        style=format!("{}{}", app_style, projects_style),
+        style=all_style,
         body=app.to_html(),
     );
 
