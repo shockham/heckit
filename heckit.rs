@@ -86,6 +86,63 @@ impl Component for App {
 }
 
 
+struct Root {
+    body_html: String,
+}
+
+impl Component for Root {
+    fn style() -> String {
+        "
+            html, body {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                background: #111;
+                color: #fff;
+                margin: 0;
+                padding: 2%;
+                box-sizing: border-box;
+                font-family: monospace;
+            }
+        ".to_string()
+    }
+
+    fn to_html(&self) -> String {
+        let global_style = Root::style();
+        let projects_style = Project::style();
+        let app_style = App::style();
+        let mut all_style = format!(
+            "{}{}{}",
+            global_style,
+            app_style,
+            projects_style,
+        );
+        all_style.retain(|c| c != ' ');
+
+        format!(
+            "<!DOCTYPE html>
+            <html>
+            <head>
+                <title>shockham</title>
+                <style>
+                    {style}
+                </style>
+            </head>
+            <body>
+                <h1>shockham</h1>
+                {body}
+            </body>
+            </html>\r",
+            style=all_style,
+            body=self.body_html,
+        )
+    }
+}
+
+
 fn main() {
     let projects = vec![
         Project {
@@ -162,50 +219,15 @@ fn main() {
 
     let app = App { projects_html };
 
-    let global_style = "
-        html, body {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
+    let body_html = app.to_html();
 
-        body {
-            background: #111;
-            color: #fff;
-            margin: 0;
-            padding: 2%;
-            box-sizing: border-box;
-            font-family: monospace;
-        }
-    ";
-    let projects_style = Project::style();
-    let app_style = App::style();
-    let mut all_style = format!(
-        "{}{}{}",
-        global_style,
-        app_style,
-        projects_style,
-    );
-    all_style.retain(|c| c != ' ');
+    let root = Root { body_html };
 
     let res_string = format!(
         "HTTP/1.1 200 OK\r
         Content-Type: text/html; charset=UTF-8\r\n\r
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>shockham</title>
-            <style>
-                {style}
-            </style>
-        </head>
-        <body>
-            <h1>shockham</h1>
-            {body}
-        </body>
-        </html>\r",
-        style=all_style,
-        body=app.to_html(),
+        {}",
+        root.to_html()
     );
 
     start_server(res_string);
