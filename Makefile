@@ -1,10 +1,12 @@
 all: run
 
 build:
-	rustc heckit.rs
+	rustc -O heckit.rs
+	strip heckit
 
 static:
-	rustc --target x86_64-unknown-linux-musl heckit.rs
+	rustc -C target-feature=+crt-static heckit.rs
+	ldd heckit
 
 run: build
 	./heckit
@@ -13,5 +15,10 @@ test:
 	rustc --test -o test_heckit heckit.rs
 	./test_heckit
 
-docker:
+docker-build:
 	docker build -t shockham/heckit:latest .
+
+docker-run:
+	docker run -p 8080:80 -it shockham/heckit:latest
+
+docker: docker-build docker-run
