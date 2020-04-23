@@ -209,7 +209,7 @@ impl Component for Root {
                 </h1>
                 {body}
             </body>
-            </html>\r",
+            </html>\r\n",
             style=all_style,
             title=self.title_html,
             body=self.body_html,
