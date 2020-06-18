@@ -304,9 +304,7 @@ fn main() {
     };
 
     let res_string = format!(
-        "HTTP/1.1 200 OK\r
-        Content-Type: text/html; charset=UTF-8\r\n\r
-        {}",
+        "{}\r",
         root.to_html()
     );
 
