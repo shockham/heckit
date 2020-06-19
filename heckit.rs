@@ -303,9 +303,12 @@ fn main() {
         body_html
     };
 
+    let root_html = root.to_html();
+
     let res_string = format!(
-        "{}\r",
-        root.to_html()
+        "HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\nContent-Length: {}\n\n{}",
+        root_html.len(),
+        root_html
     );
 
     start_server(res_string);
