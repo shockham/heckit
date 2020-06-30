@@ -221,6 +221,12 @@ impl Component for Root {
 fn main() {
     let projects = vec![
         Project {
+            title: "tiime",
+            desc: "Geometric ray march sketch",
+            href: "https://tiime.vercel.app/",
+            img: Some("https://assets.merveilles.town/media_attachments/files/000/923/478/original/6759556f200f56bf.png"),
+        },
+        Project {
             title: "flicke",
             desc: "Initially intended to be a flickery fire ray march sketch",
             href: "https://flicke.now.sh/",
